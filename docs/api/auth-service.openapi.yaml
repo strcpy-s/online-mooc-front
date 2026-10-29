@@ -1,0 +1,1135 @@
+openapi: 3.1.0
+info:
+  title: 智慧MOOC - 权限微服务接口文档
+  description: 该服务用于管理权限相关信息
+  contact:
+    name: 研究院
+    url: http://www.itcast.cn/
+    email: 1418875140@qq.com
+  version: v1.0
+servers:
+  - url: http://localhost:10010
+    description: Generated server url
+paths:
+  /roles/{id}:
+    get:
+      tags:
+        - 角色管理
+      summary: 根据id查询角色
+      operationId: queryRoleById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    $ref: "#/components/schemas/RoleDTO"
+    put:
+      tags:
+        - 角色管理
+      summary: 修改角色信息
+      operationId: updateRole
+      parameters:
+        - name: id
+          in: path
+          description: 角色id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - 角色管理
+      summary: 删除角色信息
+      operationId: deleteRole
+      parameters:
+        - name: id
+          in: path
+          description: 角色id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        "200":
+          description: OK
+  /privileges/{id}:
+    put:
+      tags:
+        - 权限管理接口
+      summary: 修改权限
+      operationId: updatePrivilege
+      parameters:
+        - name: id
+          in: path
+          description: 要修改的权限id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PrivilegeDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    $ref: "#/components/schemas/PrivilegeDTO"
+    delete:
+      tags:
+        - 权限管理接口
+      summary: 删除权限
+      operationId: removePrivilegeById
+      parameters:
+        - name: id
+          in: path
+          description: 要删除的权限id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        "200":
+          description: OK
+  /menus/{id}:
+    get:
+      tags:
+        - 菜单管理
+      summary: 根据id查询菜单
+      operationId: getMenuById
+      parameters:
+        - name: id
+          in: path
+          description: 菜单id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    $ref: "#/components/schemas/MenuOptionVO"
+    put:
+      tags:
+        - 菜单管理
+      summary: 更新菜单
+      operationId: updateMenu
+      parameters:
+        - name: id
+          in: path
+          description: 菜单id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MenuDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - 菜单管理
+      summary: 根据id删除菜单
+      operationId: deleteMenu
+      parameters:
+        - name: id
+          in: path
+          description: 菜单id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        "200":
+          description: OK
+  /roles:
+    get:
+      tags:
+        - 角色管理
+      summary: 查询员工角色列表
+      operationId: listStaffRoles
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/RoleDTO"
+    post:
+      tags:
+        - 角色管理
+      summary: 新增角色
+      operationId: saveRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    $ref: "#/components/schemas/RoleDTO"
+  /privileges:
+    get:
+      tags:
+        - 权限管理接口
+      summary: 分页查询所有权限
+      operationId: listAllPrivileges
+      parameters:
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/PageQuery"
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    $ref: "#/components/schemas/PageDTOPrivilegeDTO"
+    post:
+      tags:
+        - 权限管理接口
+      summary: 新增权限
+      operationId: savePrivilege
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PrivilegeDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    $ref: "#/components/schemas/PrivilegeDTO"
+  /privileges/role/{roleId}:
+    post:
+      tags:
+        - 权限管理接口
+      summary: 绑定角色与API权限
+      operationId: bindRolePrivileges
+      parameters:
+        - name: roleId
+          in: path
+          description: 角色id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+        - name: privilegeIds
+          in: query
+          description: API权限的id集合
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - 权限管理接口
+      summary: 解除角色的API权限
+      operationId: deleteRolePrivileges
+      parameters:
+        - name: roleId
+          in: path
+          description: 角色id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+        - name: privilegeIds
+          in: query
+          description: API权限的id集合
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        "200":
+          description: OK
+  /menus:
+    get:
+      tags:
+        - 菜单管理
+      summary: 查询菜单，按照多级菜单组成树结构
+      operationId: listMenuTree
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MenuOptionVO"
+    post:
+      tags:
+        - 菜单管理
+      summary: 新增菜单
+      operationId: saveMenu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MenuDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /menus/role/{roleId}:
+    post:
+      tags:
+        - 菜单管理
+      summary: 绑定角色与菜单权限
+      operationId: bindRoleMenus
+      parameters:
+        - name: roleId
+          in: path
+          description: 角色id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+        - name: menuIds
+          in: query
+          description: 菜单id集合
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - 菜单管理
+      summary: 解除角色的菜单权限
+      operationId: deleteRoleMenus
+      parameters:
+        - name: roleId
+          in: path
+          description: 角色id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+        - name: menuIds
+          in: query
+          description: 菜单id集合
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+      responses:
+        "200":
+          description: OK
+  /code/verifycode:
+    post:
+      tags:
+        - 发送短信验证码
+      summary: 注册发送短信验证码
+      operationId: sendVerfiycode
+      parameters:
+        - name: cellPhone
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  /accounts/wx/saveUuid:
+    post:
+      tags:
+        - 账户管理
+      summary: 保存前端生成的UUID到Redis
+      operationId: saveUuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+  /accounts/logout:
+    post:
+      tags:
+        - 账户管理
+      summary: 退出登录
+      operationId: logout
+      responses:
+        "200":
+          description: OK
+  /accounts/login:
+    post:
+      tags:
+        - 账户管理
+      summary: 登录并获取token
+      operationId: loginByPw
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginFormDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: string
+  /accounts/admin/login:
+    post:
+      tags:
+        - 账户管理
+      summary: 管理端登录并获取token
+      operationId: adminLoginByPw
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginFormDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: string
+  /roles/list:
+    get:
+      tags:
+        - 角色管理
+      summary: 查询员工角色列表
+      operationId: listAllRoles
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/RoleDTO"
+  /privileges/roles/{roleId}/{menuId}:
+    get:
+      tags:
+        - 权限管理接口
+      summary: 查询菜单下的权限列表，某个角色的权限
+      operationId: listPrivilegeByRoleId
+      parameters:
+        - name: roleId
+          in: path
+          description: 角色id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+        - name: menuId
+          in: path
+          description: 菜单id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PrivilegeOptionVO"
+  /privileges/options/{menuId}:
+    get:
+      tags:
+        - 权限管理接口
+      summary: 查询菜单下的所有权限，作为下拉选框菜单
+      operationId: listAllPrivilegesOptionsByMenuId
+      parameters:
+        - name: menuId
+          in: path
+          description: 菜单id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PrivilegeOptionVO"
+  /menus/parent/{pid}:
+    get:
+      tags:
+        - 菜单管理
+      summary: 根据父菜单id查询子菜单
+      operationId: listMenusByParent
+      parameters:
+        - name: pid
+          in: path
+          description: 父菜单id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 0
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MenuOptionVO"
+  /menus/me:
+    get:
+      tags:
+        - 菜单管理
+      summary: 查询我的菜单，按照多级菜单组成树结构
+      operationId: listMenuTreeByUser
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MenuOptionVO"
+  /accounts/wxLogin:
+    get:
+      tags:
+        - 账户管理
+      summary: 微信登录并获取token（包含回调）
+      operationId: wxLogin
+      parameters:
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: string
+  /accounts/wx/check:
+    get:
+      tags:
+        - 账户管理
+      summary: 检查微信登录状态
+      operationId: checkWxLoginStatus
+      parameters:
+        - name: uuid
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: object
+                    additionalProperties: {}
+  /accounts/refresh:
+    get:
+      tags:
+        - 账户管理
+      summary: 刷新token
+      operationId: refreshToken
+      parameters:
+        - name: refresh
+          in: cookie
+          required: false
+          schema:
+            type: string
+        - name: admin-refresh
+          in: cookie
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    description: 业务状态码，200-成功，其它-失败
+                    example: 200
+                  msg:
+                    type: string
+                    description: 响应消息
+                    example: OK
+                  requestId:
+                    type: string
+                    description: 请求id
+                    example: 1af123c11412e
+                  data:
+                    type: string
+components:
+  schemas:
+    RoleDTO:
+      type: object
+      description: 角色实体
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 主键
+          example: 1
+        code:
+          type: string
+          description: 角色代号
+          example: admin
+        name:
+          type: string
+          description: 角色名称
+          example: 教师
+    PrivilegeDTO:
+      type: object
+      description: API权限
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 权限id
+          example: 1
+        menuId:
+          type: integer
+          format: int64
+          description: 权限所属菜单id
+          example: 1
+        intro:
+          type: string
+          description: 权限说明
+          example: 新增员工
+        method:
+          type: string
+          description: API请求方式
+          example: GET
+          pattern: ^GET|POST|PUT|DELETE$
+        uri:
+          type: string
+          description: API请求路径
+          example: /account/staff
+        internal:
+          type: boolean
+          description: 是否是内部权限
+      required:
+        - intro
+        - uri
+    MenuDTO:
+      type: object
+      description: 菜单表单实体
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 菜单id
+          example: 1
+        parentId:
+          type: integer
+          format: int64
+          description: 父菜单id
+          example: 0
+        label:
+          type: string
+          description: 菜单文本
+          example: 系统管理
+        path:
+          type: string
+          description: 菜单路径
+          example: /sys/index
+        icon:
+          type: string
+          description: 菜单图标
+          example: el-icon-sys
+        priority:
+          type: integer
+          format: int32
+          description: 菜单顺序
+          example: 1
+    LoginFormDTO:
+      type: object
+      description: 登录表单实体
+      properties:
+        type:
+          type: integer
+          format: int32
+          description: 登录方式：1-密码登录; 2-验证码登录
+          example: 1
+        username:
+          type: string
+          description: 用户名
+          example: jack
+        cellPhone:
+          type: string
+          description: 手机号
+          example: "13800010001"
+        password:
+          type: string
+          description: 密码
+          example: "123"
+        rememberMe:
+          type: boolean
+          description: 7天免密登录
+          example: true
+      required:
+        - password
+        - type
+    PageQuery:
+      type: object
+      description: 分页请求参数
+      properties:
+        pageNo:
+          type: integer
+          format: int32
+          description: 页码
+          example: 1
+          minimum: 1
+        pageSize:
+          type: integer
+          format: int32
+          description: 每页大小
+          example: 5
+          minimum: 1
+        isAsc:
+          type: boolean
+          description: 是否升序
+          example: true
+        sortBy:
+          type: string
+          description: 排序字段
+          example: id
+    PageDTOPrivilegeDTO:
+      type: object
+      description: 分页结果
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: 总条数
+        pages:
+          type: integer
+          format: int64
+          description: 总页码数
+        list:
+          type: array
+          description: 当前页数据
+          items:
+            $ref: "#/components/schemas/PrivilegeDTO"
+    PrivilegeOptionVO:
+      type: object
+      description: API权限选项实体
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 权限id
+          example: 1
+        intro:
+          type: string
+          description: 权限说明
+          example: 新增员工
+        checked:
+          type: boolean
+          description: 是否选中
+          example: true
+    MenuOptionVO:
+      type: object
+      description: 菜单选项实体
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 菜单id
+          example: 1
+        parentId:
+          type: integer
+          format: int64
+          description: 父菜单id
+          example: 0
+        label:
+          type: string
+          description: 菜单文本
+          example: 系统管理
+        icon:
+          type: string
+          description: 菜单图标
+          example: el-icon-sys
+        hasChildren:
+          type: boolean
+          description: 是否有子菜单
+          example: false
+        priority:
+          type: integer
+          format: int32
+          description: 菜单顺序
+          example: 1
+        subMenus:
+          type: array
+          description: 子菜单集合
+          items:
+            $ref: "#/components/schemas/MenuOptionVO"
