@@ -22,3 +22,4 @@ Thumbs.db
 
 # 本地工具目录
 .qwen/
+.commandcode/
