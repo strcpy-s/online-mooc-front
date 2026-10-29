@@ -1,4 +1,4 @@
-import request from "@/utils/request.js"
+import request from "@/utils/request"
 const SEARCH_API_PREFIX = "/ss"
 const COURSE_API_PREFIX = "/cs"
 const LEARNING_API_PREFIX = "/ls"

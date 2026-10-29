@@ -1,4 +1,4 @@
-import request from "@/utils/request.js"
+import request from "@/utils/request"
 // 我的消息页面接口
 const MESSAGE_API_PREFIX = "/sms"
 

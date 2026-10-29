@@ -50,7 +50,7 @@ import { onMounted,reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
 import { getPayMethod, getPayUrl, getPayState } from "@/api/order.js";
-import {amountConversion} from "@/utils/tool.js"
+import {amountConversion} from "@/utils/tool"
 import QrcodeVue from 'qrcode.vue'
 import Countdown from './components/Countdown.vue'
 

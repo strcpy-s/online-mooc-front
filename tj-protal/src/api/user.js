@@ -1,4 +1,4 @@
-import request from "@/utils/request.js"
+import request from "@/utils/request"
 const USER_API_PREFIX = "/us"
 const AUTH_API_PREFIX = "/as"
 const WX_LOGIN_TYPE = 3;

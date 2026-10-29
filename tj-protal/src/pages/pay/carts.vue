@@ -75,7 +75,7 @@ import { ElMessage } from "element-plus";
 import { getCarts, delCarts } from "@/api/order.js";
 import router from "../../router";
 import moment from "moment";
-import { amountConversion } from "@/utils/tool.js"
+import { amountConversion } from "@/utils/tool"
 
 import { dataCacheStore } from "@/store"
 const store = dataCacheStore()

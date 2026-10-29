@@ -1,4 +1,4 @@
-import request from "@/utils/request.js"
+import request from "@/utils/request"
 /** 订单相关接口 **/ 
 const TRADE_API_PREFIX = "/ts"
 // 订单列表 - 分页列表

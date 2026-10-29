@@ -1,4 +1,4 @@
-import request from "@/utils/request.js"
+import request from "@/utils/request"
 // 联系、考试等考题相关接口
 const EXAM_API_PREFIX = "/es"
  // 根据小节或测试id获取练习

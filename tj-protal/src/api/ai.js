@@ -1,4 +1,4 @@
-import request from "@/utils/request.js"
+import request from "@/utils/request"
 const AI_API_PREFIX = "/ct"
 
 // 用户会话模块

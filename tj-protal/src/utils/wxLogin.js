@@ -1,3 +1,4 @@
+// @ts-nocheck
 !function (a, b, c) {
     function d(a) {
         var c = "default";

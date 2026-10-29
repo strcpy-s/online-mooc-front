@@ -1,4 +1,4 @@
-import request from "@/utils/request.js"
+import request from "@/utils/request"
 // 笔记相关接口
 const LEARNING_API_PREFIX = "/ls"
 // 新增笔记

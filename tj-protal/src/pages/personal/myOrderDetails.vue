@@ -153,7 +153,7 @@ import { ElMessage } from "element-plus";
 import { getOrderDetails, refundsApply, refundsDetails, cancelRefundApply,againRefundsApply } from "@/api/order.js";
 import { useRoute } from "vue-router";
 import { dataCacheStore } from "@/store"
-import { amountConversion } from "@/utils/tool.js"
+import { amountConversion } from "@/utils/tool"
 import { ElMessageBox } from 'element-plus'
 
 // 组件导入

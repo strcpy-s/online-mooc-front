@@ -73,7 +73,7 @@
 import { onMounted, ref, reactive } from "vue";
 import { ElMessage } from "element-plus";
 import { getExamDetails } from "@/api/class.js";
-import { upperAlpha, timeFormat } from "@/utils/tool.js"
+import { upperAlpha, timeFormat } from "@/utils/tool"
 import { useRoute } from "vue-router";
 import { useUserStore } from '@/store'
 

@@ -23,7 +23,7 @@
 2. 新建 `tj-protal/tsconfig.json`：
    `target/module: ESNext, moduleResolution: node, jsx: preserve, allowJs: true, checkJs: false, strict: false, noImplicitAny: false, esModuleInterop: true, skipLibCheck: true, resolveJsonModule: true, types: ["vite/client"], baseUrl: ".", paths: {"@/*": ["src/*"]}, lib: ["ESNext","DOM","DOM.Iterable"], include: ["src/**/*.ts","src/**/*.vue","src/**/*.d.ts","src/vite-env.d.ts"]`。
 3. 新建 `src/vite-env.d.ts`：`/// <reference types="vite/client" />` + `ImportMetaEnv`（`VITE_API_HOST_DEVELOPMENT/TEST/PRODUCT, VITE_MOCK_HOST, VITE_IMG_*`）+ 必要时 `declare module "*.vue"`。
-4. 新建 `src/types/api.ts`：`type R<T> = { code: number; msg: string; data: T }`（兼容现有 `res.code/res.data/res.msg`，`res.meg` 笔误迁页面时顺手改 `msg`）、`enum BizCode`、`interface PageQuery { pageNo: number; pageSize: number; [k: string]: any }`、`interface PageVO<T> { records: T[]; total: number; pages?: number }`。
+4. 新建 `src/types/api.ts`（以 `docs/api/*.openapi.yaml` 为准）：`interface R<T> = { code: number; msg: string; requestId: string; data: T }`、`enum BizCode { SUCC = 200, UNAUTH = 401 }`（文档仅定义"200-成功，其它-失败"，不写死其它业务码）、`interface PageQuery { pageNo: number; pageSize: number; [k: string]: any }`、`interface PageVO<T> { records: T[]; total: number; pages?: number }`（分页类型为 Step 2 预留）。
 5. 新建 `src/types/router.d.ts`：扩展 `RouteMeta { title?, icon?, active?, hidden?, current?, parent? }`。
 6. 新建 `src/types/global.d.ts`：`declare global { interface Window { WxLogin: any } }` + `declare module "*.min.js"`（覆盖厂商播放器）。
 7. `package.json` 加 `"type-check": "vue-tsc --noEmit -p tsconfig.json"`，`build` 保持 `vite build` 不变（渐进期不阻塞打包）。
@@ -99,14 +99,16 @@
 
 ## 11. 当前完成进度（持续更新）
 
+> 给 AI 的提醒：每完成一个 Step（或中途有实质进展）后，必须同步更新下表——改状态图标、写日期和验证结果；若实现与上文某条计划不一致，也要同步修正对应条款，不要只改代码不改文档。
+>
 > 状态图例：⬜ 未开始 / 🚧 进行中 / ✅ 已完成。每完成一步更新本表。
 >
 > 包管理器统一用 npm（本文命令均已按 npm 改写，以 `package-lock.json` 为准）。
 
 | 步骤 | 范围 | 状态 | 备注 |
 |---|---|---|---|
-| Step 0 | TS 基建（tsconfig、vite-env.d.ts、types、type-check） | ✅ 已完成 | 2026-10-29：装 `typescript@~5.0 + vue-tsc@^1 + @types/node`；新建 `tsconfig.json / src/vite-env.d.ts / src/types/{api.ts,router.d.ts,global.d.ts}`；`package.json` 加 `type-check`；`npm run type-check` ✅、`npm run build` ✅、dev 服务器 18082 ✅ |
-| Step 1 | config + utils（含 request.ts 核心封装） | ⬜ 未开始 | — |
+| Step 0 | TS 基建（tsconfig、vite-env.d.ts、types、type-check） | ✅ 已完成 | 2026-10-29：装 `typescript@~5.0 + vue-tsc@^1 + @types/node`；新建 `tsconfig.json / src/vite-env.d.ts / src/types/{api.ts,router.d.ts,global.d.ts}`；`package.json` 加 `type-check`；`npm run type-check` ✅、`npm run build` ✅、dev 服务器 18082 ✅。同日按 `docs/api` 修正 `api.ts`：`R<T>` 补 `requestId`，`BizCode` 去掉无依据的 `1001`；`type-check` 重新通过 ✅ |
+| Step 1 | config + utils（含 request.ts 核心封装） | ✅ 已完成 | 2026-10-29：`global/proxy/tool/refreshToken/request` 迁为 `.ts`（逻辑原样搬，成功/401 分支改用 `BizCode`），`wxLogin.js` 加 `// @ts-nocheck`；8 个 api 文件 + 6 处 tool 引用的 import 去 `.js` 后缀；`npm run type-check` ✅、`npm run build` ✅、登录页手工验证通过 ✅。附带发现：`config/style.js` 无人引用、`wxLogin.js` 为死代码（登录页用 CDN 版），均保持不动 |
 | Step 2 | api 层（8 文件，user.js 打头） | ⬜ 未开始 | — |
 | Step 3 | store 层（5 文件） | ⬜ 未开始 | — |
 | Step 4 | router + 入口（含 main.ts、index.html 入口修改） | ⬜ 未开始 | — |

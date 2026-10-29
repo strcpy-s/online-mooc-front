@@ -46,7 +46,7 @@ import { ElMessage } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
 import { confirmOrderInfo, setOrder} from "@/api/order.js";
 import { dataCacheStore } from "@/store"
-import {amountConversion} from "@/utils/tool.js"
+import {amountConversion} from "@/utils/tool"
 const store = dataCacheStore()
 
 const route = useRoute()
